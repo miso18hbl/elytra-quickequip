@@ -10,10 +10,12 @@ import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.item.ElytraItem;
 import net.minecraft.item.ItemStack;
 import net.minecraft.sound.SoundEvents;
+import net.minecraft.util.Identifier;
 import org.lwjgl.glfw.GLFW;
 
 public class ExampleModClient implements ClientModInitializer {
     private static KeyBinding elytraKey;
+    private static final KeyBinding.Category CATEGORY = KeyBinding.Category.create(Identifier.of("elytraquickequip", "general"));
 
     @Override
     public void onInitializeClient() {
@@ -21,7 +23,7 @@ public class ExampleModClient implements ClientModInitializer {
                 "key.elytraquickequip.equip",
                 InputUtil.Type.KEYSYM,
                 GLFW.GLFW_KEY_R,
-                "category.elytraquickequip"
+                CATEGORY
         ));
 
         ClientTickEvents.END_CLIENT_TICK.register(client -> {
