@@ -9,6 +9,7 @@ import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.item.ElytraItem;
 import net.minecraft.item.ItemStack;
+import net.minecraft.sound.SoundEvents;
 import org.lwjgl.glfw.GLFW;
 
 public class ExampleModClient implements ClientModInitializer {
@@ -40,8 +41,7 @@ public class ExampleModClient implements ClientModInitializer {
                 if (inv.getStack(i).isEmpty()) {
                     inv.setStack(i, chest.copy());
                     player.equipStack(EquipmentSlot.CHEST, ItemStack.EMPTY);
-                    player.playSound(net.minecraft.sound.SoundEvents.ITEM_ARMOR_EQUIP_ELYTRA, 1f, 1f);
-                    player.sendMessage(net.minecraft.text.Text.literal("\u00a7eElytra ausgezogen!"), true);
+                    player.playSound(SoundEvents.ITEM_ARMOR_EQUIP_ELYTRA, 1f, 0.8f);
                     return;
                 }
             }
@@ -50,14 +50,12 @@ public class ExampleModClient implements ClientModInitializer {
 
         for (int i = 0; i < inv.size(); i++) {
             if (inv.getStack(i).getItem() instanceof ElytraItem) {
-                ItemStack elytra = inv.getStack(i);
+                ItemStack elytra = inv.getStack(i).copy();
                 inv.setStack(i, chest.copy());
                 player.equipStack(EquipmentSlot.CHEST, elytra);
-                player.playSound(net.minecraft.sound.SoundEvents.ITEM_ARMOR_EQUIP_ELYTRA, 1f, 1f);
-                player.sendMessage(net.minecraft.text.Text.literal("\u00a7aElytra angelegt!"), true);
+                player.playSound(SoundEvents.ITEM_ARMOR_EQUIP_ELYTRA, 1f, 1f);
                 return;
             }
         }
-        player.sendMessage(net.minecraft.text.Text.literal("\u00a7cKeine Elytra!"), true);
     }
-				}
+}
